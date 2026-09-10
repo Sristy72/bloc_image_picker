@@ -68,7 +68,7 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
                 title: Text('Pick from gallery'),
                 onTap: () {
                   Navigator.pop(context);
-                  context.read().add(
+                  context.read<ImageBloc>().add(
                     PickImageFromGallery()
                   );
                 },
@@ -91,16 +91,19 @@ class _ImagePickerScreenState extends State<ImagePickerScreen> {
       child: Column(
         children: [
           ClipRRect(
-            child: Image.file(image, width: 200, height: 200,),
+            child: Image.file(image, width: double.infinity, height: 400,),
           ),
-          ElevatedButton(onPressed: (){
-            showImagePickerOptions(context);
-          }, child: Row(
-            children: [
-              Icon(Icons.edit),
-              Text('Change Image'),
-            ],
-          )),
+          SizedBox(height: 20,),
+          Center(
+            child: ElevatedButton(onPressed: (){
+              showImagePickerOptions(context);
+            }, child: Row(
+              children: [
+                Icon(Icons.edit),
+                Text('Change Image'),
+              ],
+            )),
+          ),
 
           TextButton(onPressed: (){
             context.read().add(RemoveImage());
